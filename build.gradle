@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version '8.4'
+}
+
+group = 'io.github.metriximor'
+version = '0.0.1'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven { url "https://maven.enginehub.org/repo/" }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    //noinspection VulnerableLibrariesLocal
+    compileOnly "io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"
+    compileOnly(testImplementation('com.sk89q.worldguard:worldguard-bukkit:7.0.7'))
+    testImplementation "org.mockito:mockito-core:3.+"
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        //noinspection GroovyAssignabilityCheck
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('paper-plugin.yml') {
+        expand props
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

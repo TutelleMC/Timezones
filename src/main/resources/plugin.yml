@@ -1,0 +1,7 @@
+name: Timezones
+version: '${version}'
+main: io.github.metriximor.timezones.TimezonesPlugin
+api-version: '1.18'
+author: Metriximor
+depend: [ WorldGuard ]
+softdepend: [ ChunkyBorder ]
