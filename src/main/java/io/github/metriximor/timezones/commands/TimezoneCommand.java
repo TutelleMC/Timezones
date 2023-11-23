@@ -50,7 +50,7 @@ public class TimezoneCommand implements CommandExecutor {
             case ENABLE -> {
                 if (isEnabled) {
                     sender.sendMessage("Timezones is already enabled!");
-                    return false;
+                    return true;
                 }
                 isEnabled = true;
 
@@ -61,7 +61,7 @@ public class TimezoneCommand implements CommandExecutor {
             case DISABLE -> {
                 if (!isEnabled) {
                     sender.sendMessage("Timezones is already disabled!");
-                    return false;
+                    return true;
                 }
                 isEnabled = false;
 
