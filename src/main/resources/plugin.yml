@@ -12,7 +12,7 @@ permissions:
 commands:
   timezone:
     description: "Timezone command for quick admin control"
-    usage: "/timezone <enable/disable/info>"
+    usage: "/timezone <enable/disable/version>"
     aliases:
       - tz
     permission: timezone.toggle
