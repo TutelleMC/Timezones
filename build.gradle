@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'io.github.metriximor'
-version = '0.0.1'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
@@ -37,18 +37,11 @@ java {
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        //noinspection GroovyAssignabilityCheck
-        options.release = targetJavaVersion
-    }
-}
-
 processResources {
     def props = [version: version]
     inputs.properties props
     filteringCharset 'UTF-8'
-    filesMatching('paper-plugin.yml') {
+    filesMatching('plugin.yml') {
         expand props
     }
 }
