@@ -1,6 +1,7 @@
 package io.github.metriximor.timezones;
 
 import io.github.metriximor.timezones.commands.TimezoneCommand;
+import io.github.metriximor.timezones.events.DaylightSensorEvents;
 import io.github.metriximor.timezones.events.MobCombustingEvents;
 import io.github.metriximor.timezones.events.MobSpawningEvents;
 import io.github.metriximor.timezones.events.PlayerTimeUpdaterEvents;
@@ -31,6 +32,7 @@ public final class TimezonesPlugin extends JavaPlugin {
     private final PlayerTimeUpdaterEvents playerTimeUpdaterEvents = new PlayerTimeUpdaterEvents(playerService, stateService);
     private final MobCombustingEvents mobCombustingEvents = new MobCombustingEvents(logger, timezonesService, stateService);
     private final MobSpawningEvents mobSpawningEvents = new MobSpawningEvents(logger, timezonesService, stateService);
+    private final DaylightSensorEvents daylightSensorEvents = new DaylightSensorEvents(logger, stateService, timezonesService);
     private final TimezoneCommand timezoneCommand = new TimezoneCommand(getVersion(), stateService);
 
     @Override
@@ -40,6 +42,7 @@ public final class TimezonesPlugin extends JavaPlugin {
         pluginManager.registerEvents(playerTimeUpdaterEvents, this);
         pluginManager.registerEvents(mobCombustingEvents, this);
         pluginManager.registerEvents(mobSpawningEvents, this);
+        pluginManager.registerEvents(daylightSensorEvents, this);
 
         worldsService.addWorldConfig(new WorldConfig("world", 1000, 500, 0, -64, 320));
         stateService.toggleState();

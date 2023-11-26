@@ -25,11 +25,10 @@ Run `./gradlew clean shadowjar`
 
 ## Unimplemented features that I would like to implement
 
-* Make daylight sensors work during the "night"
-* Better commands
-  * Defining world to enable and disable
 * Latitude changing length of day
   * Blocked by lack of seasons/calendar system
+* Better commands
+  * Defining which world to enable and disable
 * Proper config support
 * Multi world support
 

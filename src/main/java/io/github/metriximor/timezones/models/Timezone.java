@@ -9,4 +9,7 @@ public record Timezone(
         @NotNull Location2D meridian,
         int offset
 ) {
+    public static Timezone greenwich() {
+        return new Timezone(new Location2D(0, 0), 0);
+    }
 }
