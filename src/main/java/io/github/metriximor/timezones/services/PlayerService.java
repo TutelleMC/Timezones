@@ -24,7 +24,7 @@ public class PlayerService {
         if (nearestTimezone.isEmpty()) { // World doesn't have timezones set up
             return;
         }
-        var relativePlayerTime = TimeService.getCurrentTime(nearestTimezone.get(), world.getTime());
+        var relativePlayerTime = TimeService.getCurrentDayOffset(nearestTimezone.get(), world.getFullTime());
         logger.finest("Refreshed player %s relative time to %s".formatted(player.getName(), relativePlayerTime));
         player.setPlayerTime(relativePlayerTime, true);
     }

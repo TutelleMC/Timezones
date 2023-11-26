@@ -9,7 +9,7 @@ public class TimeService {
     private static final int TICKS_IN_A_DAY = 24000;
 
     public static boolean isDayAt(@NotNull final Timezone timezone, final long worldTime) {
-        var currentTime = getCurrentTime(timezone, worldTime);
+        var currentTime = getCurrentDayTime(timezone, worldTime);
         return currentTime >= SUNRISE_TICK && currentTime < SUNSET_TICK;
     }
 
@@ -17,12 +17,19 @@ public class TimeService {
         return !isDayAt(timezone, worldTime);
     }
 
-    public static long getCurrentTime(@NotNull Timezone timezone, long worldTime) {
+    public static long getCurrentDayTime(@NotNull final Timezone timezone, long worldTime) {
         var currentTime = (timezone.offset() + worldTime) % TICKS_IN_A_DAY;
         if (currentTime < 0) {
             // If we don't add 24k, we could have negative 12k time, which leads to funky results
             return currentTime + TICKS_IN_A_DAY;
         }
         return currentTime;
+    }
+
+    public static long getCurrentDayOffset(@NotNull final Timezone timezone, long worldTime) {
+        if (worldTime <= TICKS_IN_A_DAY) {
+            return timezone.offset() + TICKS_IN_A_DAY;
+        }
+        return timezone.offset();
     }
 }
