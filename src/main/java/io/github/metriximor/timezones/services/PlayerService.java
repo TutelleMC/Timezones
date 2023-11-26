@@ -19,12 +19,12 @@ public class PlayerService {
 
     public void refreshPlayerTime(@NotNull final Player player) {
         var location = player.getLocation();
-        var world = location.getWorld().getName();
-        var nearestTimezone = timezonesService.findNearestTimezone(world, Location2D.fromLocation(player.getLocation()));
+        var world = location.getWorld();
+        var nearestTimezone = timezonesService.findNearestTimezone(world.getName(), Location2D.fromLocation(player.getLocation()));
         if (nearestTimezone.isEmpty()) { // World doesn't have timezones set up
             return;
         }
-        var relativePlayerTime = nearestTimezone.get().currentTime();
+        var relativePlayerTime = TimeService.getCurrentTime(nearestTimezone.get(), world.getTime());
         logger.finest("Refreshed player %s relative time to %s".formatted(player.getName(), relativePlayerTime));
         player.setPlayerTime(relativePlayerTime, true);
     }

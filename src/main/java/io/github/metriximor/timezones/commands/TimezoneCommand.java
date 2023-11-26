@@ -5,14 +5,19 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class TimezoneCommand implements CommandExecutor {
+public class TimezoneCommand implements CommandExecutor, TabCompleter {
     private final String version;
     private final StateService stateService;
+
     private enum SubCommand {
         ENABLE,
         DISABLE,
@@ -57,6 +62,14 @@ public class TimezoneCommand implements CommandExecutor {
         }
 
         return false;
+    }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull final CommandSender sender,
+                                                @NotNull final Command command,
+                                                @NotNull final String label,
+                                                @NotNull final String[] args) {
+        return Arrays.stream(SubCommand.values()).map(String::valueOf).map(String::toLowerCase).toList();
     }
 
     @NotNull
