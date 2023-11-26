@@ -1,10 +1,11 @@
 plugins {
     id 'java'
     id 'io.freefair.lombok' version '8.4'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'io.github.metriximor'
-version = '0.1.0'
+version = '0.2.0'
 
 repositories {
     mavenCentral()
@@ -17,14 +18,20 @@ repositories {
         url = "https://oss.sonatype.org/content/groups/public/"
     }
     maven { url "https://maven.enginehub.org/repo/" }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    // Minecraft
     //noinspection VulnerableLibrariesLocal
-    compileOnly "io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"
-    compileOnly(testImplementation('com.sk89q.worldguard:worldguard-bukkit:7.0.7'))
+    compileOnly(testImplementation("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"))
+
+    // Math
+    implementation "com.github.Jilocasin:nearest-neighbour:308a6107f6379dae3fadcdceb01e3dfce5d3f317"
+
+    // Testing
     testImplementation "org.mockito:mockito-core:3.+"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
 def targetJavaVersion = 17
