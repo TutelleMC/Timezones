@@ -1,24 +1,18 @@
 package io.github.metriximor.timezones.commands;
 
-import io.github.metriximor.timezones.TimezonesPlugin;
-import io.github.metriximor.timezones.services.RegionService;
+import io.github.metriximor.timezones.services.StateService;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @RequiredArgsConstructor
 public class TimezoneCommand implements CommandExecutor {
     private final String version;
-    private final RegionService regionService;
-    private final Logger logger;
-    private boolean isEnabled = true;
-
+    private final StateService stateService;
     private enum SubCommand {
         ENABLE,
         DISABLE,
@@ -39,34 +33,21 @@ public class TimezoneCommand implements CommandExecutor {
             return false;
         }
 
-        final var world = Bukkit.getWorld("world");
-        if (world == null) {
-            logger.warning("Couldn't find world!");
-            return false;
-        }
-
-        final var worldConfig = TimezonesPlugin.getWorldConfig();
         switch (subCommand.get()) {
             case ENABLE -> {
-                if (isEnabled) {
+                if (stateService.isEnabled()) {
                     sender.sendMessage("Timezones is already enabled!");
                     return true;
                 }
-                isEnabled = true;
-
-                sender.sendMessage("Enabling Timezones for world %s".formatted(world));
-                regionService.registerRegions(world, worldConfig);
+                stateService.toggleState();
                 return true;
             }
             case DISABLE -> {
-                if (!isEnabled) {
+                if (!stateService.isEnabled()) {
                     sender.sendMessage("Timezones is already disabled!");
                     return true;
                 }
-                isEnabled = false;
-
-                sender.sendMessage("Disabling timezones for world %s".formatted(world));
-                regionService.unregisterRegions(world);
+                stateService.toggleState();
                 return true;
             }
             case VERSION -> {

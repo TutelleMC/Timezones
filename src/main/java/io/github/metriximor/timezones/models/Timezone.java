@@ -1,30 +1,15 @@
 package io.github.metriximor.timezones.models;
 
-import com.sk89q.worldedit.math.BlockVector2;
-import com.sk89q.worldguard.protection.flags.Flags;
-import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @param offset In hours
+ * @param offset in ticks (1 second = 20 ticks)
  */
 public record Timezone(
-        @NotNull String id,
-        @NotNull BlockVector2 upperLeftCorner,
-        @NotNull BlockVector2 lowerRightCorner,
-        int offset,
-        @NotNull WorldConfig worldConfig
+        @NotNull Location2D meridian,
+        int offset
 ) {
-    @NotNull
-    public ProtectedRegion toRegion() {
-        var region = new ProtectedCuboidRegion(
-                id,
-                upperLeftCorner.toBlockVector3(worldConfig.maxWorldHeight()),
-                lowerRightCorner.toBlockVector3(worldConfig.minWorldHeight())
-        );
-        var timeOffset = offset * 1000;
-        region.setFlag(Flags.TIME_LOCK, (timeOffset > 0) ? "+" + timeOffset : Integer.toString(timeOffset));
-        return region;
+    public long currentTime() {
+        return offset + 24000; // If we don't add 24k, we could have negative 12k time, which leads to funky results
     }
 }
