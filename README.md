@@ -25,9 +25,8 @@ Run `./gradlew clean shadowjar`
 
 ## Unimplemented features that I would like to implement
 
-* Allow mobs to spawn at "night" in night timezones
+* Make daylight sensors work during the "night"
 * Better commands
-  * Tab auto completion
   * Defining world to enable and disable
 * Latitude changing length of day
   * Blocked by lack of seasons/calendar system
