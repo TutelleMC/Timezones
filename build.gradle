@@ -2,10 +2,24 @@ plugins {
     id 'java'
     id 'io.freefair.lombok' version '8.4'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id "org.ajoberstar.reckon" version "0.18.1"
 }
 
-group = 'io.github.metriximor'
-version = '0.4.0'
+group 'io.github.metriximor'
+
+reckon {
+    defaultInferredScope = "minor"
+    snapshots()
+    scopeCalc = calcScopeFromProp()
+    stageCalc = calcStageFromProp()
+}
+
+shadowJar {
+    manifest {
+        attributes 'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+    }
+}
 
 repositories {
     mavenCentral()
@@ -44,15 +58,14 @@ java {
     }
 }
 
-processResources {
-    def props = [version: version]
-    inputs.properties props
-    filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
-        expand props
-    }
-}
-
 test {
     useJUnitPlatform()
+}
+
+tasks.register('name') {
+    println project.name
+}
+
+tasks.register('version') {
+    println project.version
 }
