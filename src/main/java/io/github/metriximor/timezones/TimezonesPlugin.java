@@ -51,7 +51,7 @@ public final class TimezonesPlugin extends JavaPlugin {
     }
 
     private static String getVersion() {
-        final String version = System.getenv("VERSION");
+        final String version = TimezonesPlugin.class.getPackage().getImplementationVersion();
         return version == null ? "dev" : version;
     }
 }
