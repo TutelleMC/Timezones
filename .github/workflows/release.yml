@@ -62,6 +62,6 @@ jobs:
 
       - name: Release
         run: |
-          gh release create $PROJECT_VERSION ./build/libs/*.jar --title "$PROJECT_NAME-$PROJECT_VERSION"
+          gh release create $PROJECT_VERSION ./build/libs/*.jar --title "$PROJECT_NAME-$PROJECT_VERSION" --generate-notes --prerelease
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
