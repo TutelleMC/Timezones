@@ -1,0 +1,8 @@
+plugin:
+  amount_of_blocks_for_gradual_longitude_time_offset: 10
+  amount_of_ticks_per_player_update: 20
+worlds:
+  - name: "world"
+    width: 1000
+    height: 500
+    x_offset: 0

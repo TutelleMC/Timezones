@@ -47,7 +47,7 @@ jobs:
         id: project_details
         run: |
           PROJECT_NAME=$(./gradlew -Preckon.scope=${{ inputs.reckonscope }} -Preckon.stage=final -q name)
-          PROJECT_VERSION=$(./gradlew -Preckon.scope=${{ inputs.reckonscope }} -Preckon.stage=final -q version)
+          PROJECT_VERSION=$(./gradlew -Preckon.scope=${{ inputs.reckonscope }} -Preckon.stage=final -q proj_version)
           echo "PROJECT_NAME=${PROJECT_NAME}" >> $GITHUB_ENV
           echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
 

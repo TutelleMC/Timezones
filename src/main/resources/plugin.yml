@@ -9,9 +9,9 @@ permissions:
     description: "Timezone allows the behaviour of the plugin to be toggled on or off"
     default: op
 commands:
-  timezone:
+  timezones:
     description: "Timezone command for quick admin control"
-    usage: "/timezone <enable/disable/version>"
+    usage: "/timezones <enable/disable/version>"
     aliases:
       - tz
     permission: timezone.toggle
