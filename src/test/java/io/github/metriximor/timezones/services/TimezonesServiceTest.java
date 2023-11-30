@@ -42,7 +42,7 @@ class TimezonesServiceTest {
     void testInstantiateTimezonesInstantiatedTheCorrectAmountOfTimezonesWithDifferentWorldSize() {
         final PluginConfig pluginConfig = new PluginConfig(10, 20);
         final TimezonesService timezonesService = new TimezonesService(loggerMock, pluginConfig, worldsService);
-        var result = timezonesService.instantiateTimezones(new WorldConfig("world", 1000, 500, 0, -64, 320)).getTimezones();
+        var result = timezonesService.instantiateTimezones(new WorldConfig("world", 1000, 500, 0)).getTimezones();
         assertEquals(101, result.size(), "There should be 25 timezones, from -12 to 12 (including)");
     }
 

@@ -29,6 +29,5 @@ Run `./gradlew clean shadowjar`
   * Blocked by lack of seasons/calendar system
 * Better commands
   * Defining which world to enable and disable
-* Proper config support
-* Multi world support
+  * Create command
 

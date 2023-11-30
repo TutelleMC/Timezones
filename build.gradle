@@ -58,6 +58,15 @@ java {
     }
 }
 
+processResources {
+    def props = [version: version.toString()]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
 test {
     useJUnitPlatform()
 }
@@ -66,6 +75,6 @@ tasks.register('name') {
     println project.name
 }
 
-tasks.register('version') {
+tasks.register('proj_version') {
     println project.version
 }
